@@ -1,0 +1,266 @@
+:root {
+  color-scheme: light;
+  --bg: #f6f0e8;
+  --surface: #ffffff;
+  --ink: #1f1c17;
+  --muted: #6c665d;
+  --accent: #0e7c73;
+  --accent-strong: #0b5d56;
+  --highlight: #f3c969;
+  --shadow: 0 20px 50px rgba(17, 12, 7, 0.12);
+  --radius: 20px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top left, #f9f6f1, #e9f2ff 35%, #f6efe4 70%);
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+main {
+  min-height: 100vh;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  width: min(1040px, 90vw);
+  margin: 0 auto;
+  padding: 48px 0 80px;
+}
+
+.hero {
+  display: grid;
+  gap: 32px;
+}
+
+.profile {
+  display: grid;
+  gap: 16px;
+  text-align: center;
+  justify-items: center;
+}
+
+.avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 28px;
+  background: linear-gradient(135deg, var(--accent), var(--highlight));
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  box-shadow: var(--shadow);
+}
+
+.profile h1 {
+  margin: 0;
+  font-size: clamp(28px, 4vw, 42px);
+}
+
+.profile p {
+  margin: 0;
+  color: var(--muted);
+  max-width: 520px;
+}
+
+.links {
+  display: grid;
+  gap: 18px;
+}
+
+.link-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  display: grid;
+  gap: 8px;
+  border: 1px solid rgba(31, 28, 23, 0.08);
+  box-shadow: var(--shadow);
+  transform: translateY(12px);
+  opacity: 0;
+  animation: fadeUp 0.6s ease forwards;
+}
+
+.link-card h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.link-card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.link-card span {
+  color: var(--accent-strong);
+  font-weight: 600;
+}
+
+.link-card:hover {
+  border-color: rgba(14, 124, 115, 0.3);
+  transform: translateY(0);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.footer-link {
+  text-align: center;
+  color: var(--muted);
+}
+
+.footer-link a {
+  color: var(--accent-strong);
+  font-weight: 600;
+}
+
+.admin-shell {
+  display: grid;
+  gap: 24px;
+}
+
+.admin-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 24px;
+  border: 1px solid rgba(31, 28, 23, 0.08);
+  box-shadow: var(--shadow);
+}
+
+.admin-form {
+  display: grid;
+  gap: 16px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.field label {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid rgba(31, 28, 23, 0.15);
+  padding: 10px 12px;
+  font: inherit;
+  background: #fff;
+}
+
+.field textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+button,
+.button {
+  border: none;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--accent);
+  color: #fff;
+}
+
+button.secondary,
+.button.secondary {
+  background: #f2ebe1;
+  color: var(--ink);
+}
+
+button.ghost,
+.button.ghost {
+  background: transparent;
+  color: var(--accent-strong);
+  border: 1px solid rgba(14, 124, 115, 0.35);
+}
+
+.link-row {
+  display: grid;
+  gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(31, 28, 23, 0.08);
+}
+
+.link-row:last-child {
+  border-bottom: none;
+}
+
+.link-row h4 {
+  margin: 0;
+}
+
+.link-meta {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.inline-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.helper {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 900px) {
+  .hero {
+    grid-template-columns: 1.1fr 1.4fr;
+    align-items: center;
+  }
+
+  .profile {
+    text-align: left;
+    justify-items: start;
+  }
+}
