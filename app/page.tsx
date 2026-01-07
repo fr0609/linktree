@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import LinkList from "./components/LinkList";
 
@@ -33,8 +34,16 @@ export default function HomePage() {
         <section className="hero">
           <div className="profile">
             <p className="eyebrow"><strong>Fitness Explorer</strong>, Personal Training</p>
-            <div className="avatar">FE</div>
-            <h1>Fitness Explorer</h1>
+            <div className="profile-photo">
+              <Image
+                src="/assets/coach/empieza-hoy.jpeg"
+                alt="Charles animándote a empezar hoy"
+                width={520}
+                height={520}
+                priority
+              />
+            </div>
+            <h1>Entrena conmigo, Charles</h1>
             <p className="lead">
               Ayudo a personas ocupadas a ganar fuerza, perder grasa y sentirse seguras con un método simple: entrenamientos inteligentes, técnica adecuada y consistencia.
             </p>
@@ -47,6 +56,44 @@ export default function HomePage() {
           </div>
           <div id="links">
             <LinkList />
+          </div>
+        </section>
+
+        <section className="coach-highlight">
+          <div className="coach-media">
+            <Image
+              src="/assets/coach/charles-modelando.jpeg"
+              alt="Charles mostrando resultados de entrenamiento"
+              fill
+              sizes="(min-width: 900px) 55vw, 100vw"
+              priority
+            />
+          </div>
+          <div className="coach-copy">
+            <p className="eyebrow">Empieza hoy</p>
+            <h2>Haz de tu objetivo una realidad</h2>
+            <p>
+              Entrenamientos claros, hábitos que se sostienen y acompañamiento real. He ayudado a cientos de clientes
+              a recomponer su cuerpo sin métodos extremos.
+            </p>
+            <div className="coach-points">
+              <div>
+                <strong>✔ Plan a medida</strong>
+                <span>Según tu tiempo, equipo y nivel.</span>
+              </div>
+              <div>
+                <strong>✔ Seguimiento cercano</strong>
+                <span>Feedback semanal y ajustes constantes.</span>
+              </div>
+              <div>
+                <strong>✔ Resultados visibles</strong>
+                <span>Foco en fuerza, pérdida de grasa y confianza.</span>
+              </div>
+            </div>
+            <div className="button-row">
+              <a className="button" href="https://wa.me/15551234567" target="_blank" rel="noreferrer">Agenda tu llamada</a>
+              <a className="button ghost" href="#links">Explora los enlaces</a>
+            </div>
           </div>
         </section>
         

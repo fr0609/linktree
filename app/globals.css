@@ -85,18 +85,20 @@ main {
   padding: 20px;
 }
 
-.avatar {
-  width: 96px;
-  height: 96px;
+.profile-photo {
+  width: min(320px, 90vw);
+  aspect-ratio: 1 / 1;
   border-radius: 28px;
-  background: linear-gradient(135deg, var(--brand), var(--brand-800));
-  display: grid;
-  place-items: center;
-  color: #0b0b0c;
-  font-size: 32px;
-  font-weight: 700;
-  letter-spacing: 1px;
+  overflow: hidden;
   box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.profile-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .profile h1 {
@@ -133,6 +135,77 @@ main {
   text-align: center;
   color: var(--text);
   margin-bottom: 20px;
+}
+
+.coach-highlight {
+  display: grid;
+  gap: 24px;
+  margin-top: 56px;
+  padding: 28px;
+  background: linear-gradient(135deg, rgba(173, 201, 126, 0.08), rgba(138, 172, 79, 0.05));
+  border-radius: var(--radius);
+  border: 1px solid rgba(173, 201, 126, 0.15);
+  box-shadow: var(--shadow);
+}
+
+.coach-highlight h2 {
+  margin: 8px 0 12px;
+  font-size: clamp(28px, 4vw, 40px);
+  letter-spacing: 1px;
+}
+
+.coach-highlight p {
+  margin: 0 0 10px;
+  color: var(--muted);
+}
+
+.coach-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.coach-media img {
+  object-fit: cover;
+}
+
+.coach-copy {
+  display: grid;
+  gap: 12px;
+  align-content: center;
+}
+
+.coach-points {
+  display: grid;
+  gap: 8px;
+}
+
+.coach-points div {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(173, 201, 126, 0.15);
+}
+
+.coach-points strong {
+  display: block;
+  letter-spacing: 0.4px;
+}
+
+.coach-points span {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+@media (min-width: 900px) {
+  .coach-highlight {
+    grid-template-columns: 1.2fr 1fr;
+    align-items: center;
+  }
 }
 
 .link-card {
