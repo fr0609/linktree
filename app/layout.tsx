@@ -1,15 +1,23 @@
 import type { Metadata } from "next";
-import { Space_Grotesk } from "next/font/google";
+import { Bebas_Neue, Inter } from "next/font/google";
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({
+const bebasNeue = Bebas_Neue({
+  weight: "400",
   subsets: ["latin"],
-  display: "swap"
+  display: "swap",
+  variable: "--font-bebas"
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter"
 });
 
 export const metadata: Metadata = {
-  title: "Linktree",
-  description: "Share your key links with a clean landing page."
+  title: "FitLife Gym - Your Fitness Hub",
+  description: "Transform your body, elevate your mind. Join the strongest community in town."
 };
 
 export default function RootLayout({
@@ -19,7 +27,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={spaceGrotesk.className}>
+      <body className={`${bebasNeue.variable} ${inter.variable}`}>
         <div className="page">{children}</div>
       </body>
     </html>

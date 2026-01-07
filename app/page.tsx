@@ -6,11 +6,10 @@ export default function HomePage() {
     <main className="container">
       <section className="hero">
         <div className="profile">
-          <div className="avatar">LR</div>
-          <h1>Frarlon Rodriguez</h1>
+          <div className="avatar">FR</div>
+          <h1>FitLife Gym</h1>
           <p>
-            A quick hub for the projects, writing, and collaborations I care
-            about right now.
+            Transform your body, elevate your mind. Join the strongest community in town. All your fitness resources in one place.
           </p>
         </div>
         <LinkList />
