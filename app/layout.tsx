@@ -16,8 +16,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "FitLife Gym - Your Fitness Hub",
-  description: "Transform your body, elevate your mind. Join the strongest community in town."
+  title: "Fitness Explorer - Entrenamiento Personal",
+  description: "Ayudo a personas ocupadas a ganar fuerza, perder grasa y sentirse seguras con entrenamientos inteligentes."
 };
 
 export default function RootLayout({
