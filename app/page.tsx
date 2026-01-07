@@ -24,7 +24,7 @@ export default function HomePage() {
           <Link className="brand" href="/">Fitness Explorer</Link>
           <nav className="nav">
             <Link href="#links">Links</Link>
-            <Link href="/admin">Admin</Link>
+            <Link href="/admin" prefetch={false}>Admin</Link>
           </nav>
         </div>
       </header>
@@ -51,7 +51,7 @@ export default function HomePage() {
         </section>
         
         <footer className="footer-link">
-          <Link href="/admin">Admin Dashboard</Link>
+          <Link href="/admin" prefetch={false}>Admin Dashboard</Link>
         </footer>
       </main>
     </>
