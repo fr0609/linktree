@@ -73,6 +73,20 @@ ADMIN_USER=your-user
 ADMIN_PASSWORD=your-password
 ```
 
+5. Configure storage (Vercel Blob) so link edits persist:
+
+```
+# Provided store base URL (defaults to this if unset)
+BLOB_BASE_URL=https://c6w3nqm4lv3zlwxc.public.blob.vercel-storage.com
+# From your Vercel Blob store connection panel
+BLOB_READ_WRITE_TOKEN=...
+BLOB_READ_ONLY_TOKEN=...
+```
+
+- In Vercel, go to Storage → your Blob store → Connections to copy the tokens.
+- Add the same variables in your Vercel project settings and redeploy.
+- For local dev, run `vercel link` then `vercel env pull` or paste the values into `.env.local` and restart `npm run dev`.
+
 ## Customize
 
 - Update the profile name and bio in `app/page.tsx`.

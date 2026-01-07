@@ -1,46 +1,91 @@
 import { NextResponse } from "next/server";
-import { kv } from "@vercel/kv";
+import { put } from "@vercel/blob";
 import { cleanLinks, DEFAULT_LINKS, LinkItem } from "@/lib/links";
 
-const LINKS_KEY = "linktree:links";
+const BLOB_KEY = "links.json";
+const BLOB_BASE_URL = (process.env.BLOB_BASE_URL || "https://c6w3nqm4lv3zlwxc.public.blob.vercel-storage.com").replace(/\/$/, "");
 export const dynamic = "force-dynamic";
 
-export async function GET() {
+let memoryLinks: LinkItem[] | null = null;
+
+function getSafeLinks(candidate: unknown): LinkItem[] {
+  if (!Array.isArray(candidate)) {
+    return DEFAULT_LINKS;
+  }
+
+  const cleaned = cleanLinks(candidate as LinkItem[]);
+  if ((candidate as LinkItem[]).length > 0 && cleaned.length === 0) {
+    return DEFAULT_LINKS;
+  }
+
+  return cleaned.length === 0 ? DEFAULT_LINKS : cleaned;
+}
+
+function getBlobUrl(key: string): string {
+  return `${BLOB_BASE_URL}/${key}`;
+}
+
+async function readLinksFromBlob(): Promise<LinkItem[] | null> {
   try {
-    const stored = await kv.get<LinkItem[] | null>(LINKS_KEY);
-    if (stored === null) {
-      return NextResponse.json({ links: DEFAULT_LINKS });
+    const response = await fetch(getBlobUrl(BLOB_KEY), { cache: "no-cache" });
+    if (!response.ok) {
+      return null;
     }
-    if (!Array.isArray(stored)) {
-      return NextResponse.json({ links: DEFAULT_LINKS });
-    }
-    const cleaned = cleanLinks(stored);
-    if (stored.length > 0 && cleaned.length === 0) {
-      return NextResponse.json({ links: DEFAULT_LINKS });
-    }
-    return NextResponse.json({ links: cleaned });
-  } catch (error) {
-    return NextResponse.json(
-      { error: "Failed to load links." },
-      { status: 500 }
-    );
+
+    const data = await response.json();
+    const payload = Array.isArray(data) ? data : (data as { links?: unknown }).links;
+    return getSafeLinks(payload ?? []);
+  } catch {
+    return null;
   }
 }
 
-export async function PUT(request: Request) {
-  try {
-    const body = await request.json();
-    if (!body || !Array.isArray(body.links)) {
-      return NextResponse.json({ error: "Invalid payload." }, { status: 400 });
-    }
+export async function GET() {
+  const blobLinks = await readLinksFromBlob();
+  if (blobLinks) {
+    memoryLinks = blobLinks;
+    return NextResponse.json({ links: blobLinks });
+  }
 
-    const cleaned = cleanLinks(body.links);
-    await kv.set(LINKS_KEY, cleaned);
-    return NextResponse.json({ links: cleaned });
-  } catch (error) {
-    return NextResponse.json(
-      { error: "Failed to save links." },
-      { status: 500 }
-    );
+  if (memoryLinks !== null) {
+    return NextResponse.json({
+      links: memoryLinks,
+      warning: "Using cached links; blob unavailable."
+    });
+  }
+
+  const defaults = getSafeLinks(DEFAULT_LINKS);
+  memoryLinks = defaults;
+  return NextResponse.json({ links: defaults });
+}
+
+export async function PUT(request: Request) {
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid payload." }, { status: 400 });
+  }
+
+  if (!body || typeof body !== "object" || !Array.isArray((body as { links: unknown }).links)) {
+    return NextResponse.json({ error: "Invalid payload." }, { status: 400 });
+  }
+
+  const safeLinks = getSafeLinks((body as { links: unknown }).links);
+  memoryLinks = safeLinks;
+
+  try {
+    await put(BLOB_KEY, JSON.stringify({ links: safeLinks }), {
+      access: "public",
+      addRandomSuffix: false,
+      contentType: "application/json"
+    });
+
+    return NextResponse.json({ links: safeLinks, url: getBlobUrl(BLOB_KEY) });
+  } catch {
+    return NextResponse.json({
+      links: safeLinks,
+      warning: "Saved locally; blob storage not reachable."
+    });
   }
 }
