@@ -32,7 +32,7 @@ function isAuthorized(request: NextRequest): boolean {
   return user === expectedUser && password === expectedPassword;
 }
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   if (pathname.startsWith("/api/links")) {
