@@ -257,15 +257,21 @@ main {
   color: var(--muted);
 }
 
-.field input,
-.field textarea {
-  width: 100%;
-  border-radius: 14px;
-  border: 1px solid rgba(31, 28, 23, 0.15);
-  padding: 10px 12px;
-  font: inherit;
-  background: #fff;
-}
+ .field input,
+ .field textarea {
+   width: 100%;
+   border-radius: 14px;
+   border: 1px solid rgba(31, 28, 23, 0.15);
+   padding: 10px 12px;
+   font: inherit;
+   background: #fff;
+   color: #0b0b0c;
+ }
+ .field input::placeholder,
+ .field textarea::placeholder {
+   color: #6a6d73;
+ }
+
 
 .field textarea {
   min-height: 80px;
